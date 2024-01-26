@@ -1,0 +1,22 @@
+[package]
+name = "svg2pdf"
+description = "Convert SVG files to PDFs."
+categories = ["encoding", "graphics", "multimedia"]
+keywords = ["svg", "pdf", "vector-graphics", "conversion"]
+version = "0.9.1"
+authors = ["Martin Haug <mhaug@live.de>", "Laurenz Stampfl <laurenz.stampfl@gmail.com>"]
+edition = "2021"
+repository = "https://github.com/typst/svg2pdf"
+readme = "README.md"
+license = "MIT OR Apache-2.0"
+
+
+[lib]
+bench = false
+
+[dependencies]
+miniz_oxide = { version = "^0.7.1", default-features = false, features = ["with-alloc"] }
+once_cell = "1.18.0"
+tiny-skia = "0.11.3"
+pdf-writer = "0.9"
+usvg = { path = "../usvg", version = "0.38.0" }
