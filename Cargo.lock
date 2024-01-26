@@ -233,6 +233,7 @@ name = "svg2pdf"
 version = "0.9.1"
 dependencies = [
  "lazy_static",
+ "memchr",
  "miniz_oxide",
  "pdf-writer",
  "tiny-skia",
