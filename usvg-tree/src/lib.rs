@@ -33,7 +33,7 @@ use alloc::sync::Arc;
 use alloc::vec::Vec;
 use core::cell::RefCell;
 
-pub use strict_num::{self, ApproxEqUlps, NonZeroPositiveF32, NormalizedF32, PositiveF32};
+pub use strict_num::{self, NonZeroPositiveF32, NormalizedF32, PositiveF32};
 pub use svgtypes::{Align, AspectRatio};
 
 pub use tiny_skia_path;
