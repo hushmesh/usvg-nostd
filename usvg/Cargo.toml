@@ -9,7 +9,7 @@ description = "An SVG simplification library."
 categories = ["multimedia::images"]
 
 [dependencies]
-ahash = { version = "0.8.7", default-features = false }
+ahash = { version = "0.8.6", default-features = false }
 base64 = { version = "0.21.7", default-features = false, features = ["alloc"] }
 hashbrown = { version = "0.14.3" }
 log = "0.4"
