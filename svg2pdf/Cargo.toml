@@ -18,5 +18,5 @@ bench = false
 lazy_static = { version = "1.4.0", default_features = false, features = ["spin_no_std"] }
 miniz_oxide = { version = "^0.7.1", default-features = false, features = ["with-alloc"] }
 pdf-writer = "0.9"
-tiny-skia = "0.11.3"
+tiny-skia = { version = "0.11.3", default-features = false, features = ["no-std-float"]}
 usvg = { path = "../usvg", version = "0.38.0" }
