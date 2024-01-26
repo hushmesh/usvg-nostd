@@ -52,7 +52,7 @@ mod render;
 mod util;
 
 use alloc::vec::Vec;
-use once_cell::sync::Lazy;
+use lazy_static::lazy_static;
 use pdf_writer::{Chunk, Content, Filter, Finish, Pdf, Rect, Ref, TextStr};
 use usvg::utils::view_box_to_transform;
 use usvg::{Align, AspectRatio, NonZeroRect, Size, Transform, Tree, TreeParsing};
@@ -61,9 +61,11 @@ use crate::render::tree_to_stream;
 use crate::util::context::Context;
 use crate::util::helper::{deflate, dpi_ratio};
 
+lazy_static! {
 // The ICC profiles.
-static SRGB_ICC_DEFLATED: Lazy<Vec<u8>> = Lazy::new(|| deflate(include_bytes!("icc/sRGB-v4.icc")));
-static GRAY_ICC_DEFLATED: Lazy<Vec<u8>> = Lazy::new(|| deflate(include_bytes!("icc/sGrey-v4.icc")));
+    static ref SRGB_ICC_DEFLATED: Vec<u8> = deflate(include_bytes!("icc/sRGB-v4.icc"));
+    static ref GRAY_ICC_DEFLATED: Vec<u8> = deflate(include_bytes!("icc/sGrey-v4.icc"));
+}
 
 /// Set size and scaling preferences for the conversion.
 #[derive(Copy, Clone)]
