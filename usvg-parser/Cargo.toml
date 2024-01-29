@@ -15,7 +15,7 @@ exclude = ["tests"]
 [dependencies]
 data-url = "0.3" # for href parsing
 hashbrown = { version = "0.12", default-features = false, features = ["ahash"] }
-imagesize = "0.12" # raster images size detection
+imagesize = { path = "../imagesize" } # raster images size detection
 kurbo = { path = "../kurbo" }
 log = "0.4"
 no_std_io = { version = "^0.5", features = ["alloc"] }
