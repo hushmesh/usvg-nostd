@@ -14,9 +14,9 @@ exclude = ["tests"]
 
 [dependencies]
 data-url = "0.3" # for href parsing
-hashbrown = { version = "0.14", default-features = false, features = ["ahash"] }
+hashbrown = { version = "0.12", default-features = false, features = ["ahash"] }
 imagesize = "0.12" # raster images size detection
-kurbo = { version = "0.9", default-features = false, features = ["libm"] } # Bezier curves utils
+kurbo = { path = "../kurbo" }
 log = "0.4"
 no_std_io = { version = "^0.5", features = ["alloc"] }
 roxmltree = "0.19"

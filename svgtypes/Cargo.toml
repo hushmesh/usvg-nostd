@@ -13,36 +13,4 @@ repository = "https://github.com/RazrFalcon/svgtypes"
 
 [dependencies]
 siphasher = "0.3" # perfect hash implementation for color names
-kurbo = { version = "0.9", default-features = false, features = ["libm"] } # ArcTo to CurveTo(s)
-sgx_tstd = { git = "https://github.com/apache/teaclave-sgx-sdk.git" }
-
-[patch.'https://github.com/apache/teaclave-sgx-sdk.git']
-sgx_align_struct_attribute = { version = "1.1.6", git = "https://github.com/hushmesh/incubator-teaclave-sgx-sdk", tag = "v1.1.6-sgx-sdk-2.18" }
-sgx_alloc = { version = "1.1.6", git = "https://github.com/hushmesh/incubator-teaclave-sgx-sdk", tag = "v1.1.6-sgx-sdk-2.18" }
-sgx_backtrace = { version = "1.1.6", git = "https://github.com/hushmesh/incubator-teaclave-sgx-sdk", tag = "v1.1.6-sgx-sdk-2.18" }
-sgx_backtrace_sys = { version = "1.1.6", git = "https://github.com/hushmesh/incubator-teaclave-sgx-sdk", tag = "v1.1.6-sgx-sdk-2.18" }
-sgx_build_helper = { version = "1.1.6", git = "https://github.com/hushmesh/incubator-teaclave-sgx-sdk", tag = "v1.1.6-sgx-sdk-2.18" }
-sgx_cov = { version = "1.1.6", git = "https://github.com/hushmesh/incubator-teaclave-sgx-sdk", tag = "v1.1.6-sgx-sdk-2.18" }
-sgx_crypto_helper = { version = "1.1.6", git = "https://github.com/hushmesh/incubator-teaclave-sgx-sdk", tag = "v1.1.6-sgx-sdk-2.18" }
-sgx_demangle = { version = "1.1.6", git = "https://github.com/hushmesh/incubator-teaclave-sgx-sdk", tag = "v1.1.6-sgx-sdk-2.18" }
-sgx_libc = { version = "1.1.6", git = "https://github.com/hushmesh/incubator-teaclave-sgx-sdk", tag = "v1.1.6-sgx-sdk-2.18" }
-sgx_no_tstd = { version = "1.1.6", git = "https://github.com/hushmesh/incubator-teaclave-sgx-sdk", tag = "v1.1.6-sgx-sdk-2.18" }
-sgx_rand = { version = "1.1.6", git = "https://github.com/hushmesh/incubator-teaclave-sgx-sdk", tag = "v1.1.6-sgx-sdk-2.18" }
-sgx_rand_derive = { version = "1.1.6", git = "https://github.com/hushmesh/incubator-teaclave-sgx-sdk", tag = "v1.1.6-sgx-sdk-2.18" }
-sgx_serialize = { version = "1.1.6", git = "https://github.com/hushmesh/incubator-teaclave-sgx-sdk", tag = "v1.1.6-sgx-sdk-2.18" }
-sgx_serialize_derive = { version = "1.1.6", git = "https://github.com/hushmesh/incubator-teaclave-sgx-sdk", tag = "v1.1.6-sgx-sdk-2.18" }
-sgx_serialize_derive_internals = { version = "1.1.6", git = "https://github.com/hushmesh/incubator-teaclave-sgx-sdk", tag = "v1.1.6-sgx-sdk-2.18" }
-sgx_tcrypto = { version = "1.1.6", git = "https://github.com/hushmesh/incubator-teaclave-sgx-sdk", tag = "v1.1.6-sgx-sdk-2.18" }
-sgx_tcrypto_helper = { version = "1.1.6", git = "https://github.com/hushmesh/incubator-teaclave-sgx-sdk", tag = "v1.1.6-sgx-sdk-2.18" }
-sgx_tdh = { version = "1.1.6", git = "https://github.com/hushmesh/incubator-teaclave-sgx-sdk", tag = "v1.1.6-sgx-sdk-2.18" }
-sgx_tkey_exchange = { version = "1.1.6", git = "https://github.com/hushmesh/incubator-teaclave-sgx-sdk", tag = "v1.1.6-sgx-sdk-2.18" }
-sgx_tprotected_fs = { version = "1.1.6", git = "https://github.com/hushmesh/incubator-teaclave-sgx-sdk", tag = "v1.1.6-sgx-sdk-2.18" }
-sgx_trts = { version = "1.1.6", git = "https://github.com/hushmesh/incubator-teaclave-sgx-sdk", tag = "v1.1.6-sgx-sdk-2.18" }
-sgx_tse = { version = "1.1.6", git = "https://github.com/hushmesh/incubator-teaclave-sgx-sdk", tag = "v1.1.6-sgx-sdk-2.18" }
-sgx_tseal = { version = "1.1.6", git = "https://github.com/hushmesh/incubator-teaclave-sgx-sdk", tag = "v1.1.6-sgx-sdk-2.18" }
-sgx_tstd = { version = "1.1.6", git = "https://github.com/hushmesh/incubator-teaclave-sgx-sdk", tag = "v1.1.6-sgx-sdk-2.18" }
-sgx_tunittest = { version = "1.1.6", git = "https://github.com/hushmesh/incubator-teaclave-sgx-sdk", tag = "v1.1.6-sgx-sdk-2.18" }
-sgx_types = { version = "1.1.6", git = "https://github.com/hushmesh/incubator-teaclave-sgx-sdk", tag = "v1.1.6-sgx-sdk-2.18" }
-#sgx_ucrypto = { path = "../../../sgx_ucrypto" }
-sgx_unwind = { version = "1.1.6", git = "https://github.com/hushmesh/incubator-teaclave-sgx-sdk", tag = "v1.1.6-sgx-sdk-2.18" }
-sgx_urts = { version = "1.1.6", git = "https://github.com/hushmesh/incubator-teaclave-sgx-sdk", tag = "v1.1.6-sgx-sdk-2.18" }
+kurbo = { path = "../kurbo" }

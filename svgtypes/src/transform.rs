@@ -1,4 +1,5 @@
 use core::f64;
+use kurbo::common::FloatFuncs;
 
 use crate::{Error, Stream};
 
@@ -240,8 +241,7 @@ impl core::str::FromStr for Transform {
                 }
                 TransformListToken::Rotate { angle } => {
                     let v = angle.to_radians();
-                    let a = v.cos();
-                    let b = v.sin();
+                    let (b, a) = v.sin_cos();
                     let c = -b;
                     let d = a;
                     ts = multiply(&ts, &Transform::new(a, b, c, d, 0.0, 0.0))

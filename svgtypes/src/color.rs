@@ -1,4 +1,5 @@
 use crate::{colors, ByteExt, Error, Stream};
+use kurbo::common::FloatFuncs;
 
 /// Representation of the [`<color>`] type.
 ///
