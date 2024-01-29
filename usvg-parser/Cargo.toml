@@ -19,7 +19,7 @@ imagesize = "0.12" # raster images size detection
 kurbo = { path = "../kurbo" }
 log = "0.4"
 no_std_io = { version = "^0.5", features = ["alloc"] }
-roxmltree = "0.19"
+roxmltree = { version = "0.19", default-features = false }
 simplecss = "0.2"
 siphasher = "0.3" # perfect hash implementation
 svgtypes = { path = "../svgtypes" }
