@@ -6,6 +6,7 @@ use alloc::boxed::Box;
 use alloc::rc::Rc;
 use alloc::vec::Vec;
 
+use kurbo::common::FloatFuncs;
 use strict_num::NonZeroPositiveF32;
 use svgtypes::Length;
 use tiny_skia_path::Point;

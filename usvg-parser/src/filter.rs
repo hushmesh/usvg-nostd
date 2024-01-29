@@ -15,6 +15,7 @@ use core::cell::RefCell;
 use core::str::FromStr;
 use hashbrown::HashSet;
 
+use kurbo::common::FloatFuncs;
 use strict_num::PositiveF32;
 use svgtypes::{Length, LengthUnit as Unit};
 use usvg_tree::filter::*;

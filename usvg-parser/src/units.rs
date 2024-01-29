@@ -4,6 +4,7 @@
 
 use alloc::vec::Vec;
 
+use kurbo::common::FloatFuncs;
 use svgtypes::{Length, LengthUnit as Unit};
 use usvg_tree::Units;
 
