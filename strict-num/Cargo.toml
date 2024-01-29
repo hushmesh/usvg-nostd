@@ -1,0 +1,27 @@
+[package]
+name = "strict-num"
+version = "0.2.0"
+authors = ["Yevhenii Reizner <razrfalcon@gmail.com>"]
+license = "MIT"
+description = "A collection of bounded numeric types"
+repository = "https://github.com/RazrFalcon/strict-num"
+documentation = "https://docs.rs/strict-num/"
+categories = ["mathematics", "no-std"]
+readme = "README.md"
+edition = "2021"
+rust-version = "1.56"
+
+[dependencies]
+float-cmp = { path = "../float-cmp", default-features = false, optional = true }
+serde = { version = "1", optional = true }
+
+[dev-dependencies]
+serde_json = "1"
+
+[features]
+default = ["approx-eq"]
+
+# Implements `ApproxEq` and `ApproxEqUlps` traits for floating point numbers
+# via the `float-cmp` crate.
+# Disables `no_std`.
+approx-eq = ["float-cmp"]

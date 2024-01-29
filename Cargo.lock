@@ -126,6 +126,13 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "98de4bbd547a563b716d8dfa9aad1cb19bfab00f4fa09a6a4ed21dbcf44ce9c4"
 
 [[package]]
+name = "float-cmp"
+version = "0.10.0-pre"
+dependencies = [
+ "num-traits",
+]
+
+[[package]]
 name = "getrandom"
 version = "0.2.12"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -493,7 +500,16 @@ version = "0.1.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "6637bab7722d379c8b41ba849228d680cc12d0a45ba1fa2b48f2a30577a06731"
 dependencies = [
- "float-cmp",
+ "float-cmp 0.9.0",
+]
+
+[[package]]
+name = "strict-num"
+version = "0.2.0"
+dependencies = [
+ "float-cmp 0.10.0-pre",
+ "serde",
+ "serde_json",
 ]
 
 [[package]]
@@ -545,7 +561,7 @@ dependencies = [
  "arrayref",
  "bytemuck",
  "libm",
- "strict-num",
+ "strict-num 0.1.1",
 ]
 
 [[package]]
@@ -589,7 +605,7 @@ dependencies = [
 name = "usvg-tree"
 version = "0.38.0"
 dependencies = [
- "strict-num",
+ "strict-num 0.1.1",
  "svgtypes",
  "tiny-skia-path",
 ]

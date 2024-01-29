@@ -1,4 +1,4 @@
 [workspace]
-members = [ "kurbo", "pdf-writer", "svgtypes", "svg2pdf", "usvg", "usvg-parser", "usvg-tree" ]
+members = [ "float-cmp", "kurbo", "pdf-writer", "strict-num", "svgtypes", "svg2pdf", "usvg", "usvg-parser", "usvg-tree" ]
 resolver = "2"
 
