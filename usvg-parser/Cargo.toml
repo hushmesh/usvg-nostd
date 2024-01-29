@@ -10,15 +10,17 @@ categories = ["multimedia::images"]
 repository = "https://github.com/RazrFalcon/resvg"
 documentation = "https://docs.rs/usvg-parser/"
 readme = "README.md"
+exclude = ["tests"]
 
 [dependencies]
 data-url = "0.3" # for href parsing
-hashbrown = { version = "0.14.3" }
+hashbrown = { version = "0.14", default-features = false, features = ["ahash"] }
 imagesize = "0.12" # raster images size detection
-kurbo = "0.9" # Bezier curves utils
+kurbo = { version = "0.9", default-features = false, features = ["libm"] } # Bezier curves utils
 log = "0.4"
+no_std_io = { version = "^0.5", features = ["alloc"] }
 roxmltree = "0.19"
 simplecss = "0.2"
 siphasher = "0.3" # perfect hash implementation
-svgtypes = { path = "../svgtypes", version = "0.13" }
-usvg-tree = { path = "../usvg-tree", version = "0.38.0" }
+svgtypes = { path = "../svgtypes" }
+usvg-tree = { version = "0.38.0", path = "../usvg-tree" }

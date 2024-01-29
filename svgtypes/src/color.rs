@@ -312,6 +312,7 @@ fn f64_bound(min: f64, val: f64, max: f64) -> f64 {
 #[cfg(test)]
 mod tests {
     use core::str::FromStr;
+    use alloc::string::ToString;
     use crate::Color;
 
     macro_rules! test {
@@ -555,7 +556,6 @@ mod tests {
         ($name:ident, $text:expr, $err:expr) => {
             #[test]
             fn $name() {
-                use alloc::string::ToString;
                 assert_eq!(Color::from_str($text).unwrap_err().to_string(), $err);
             }
         };

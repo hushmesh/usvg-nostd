@@ -1,5 +1,6 @@
 use alloc::rc::Rc;
 use alloc::string::String;
+
 use pdf_writer::{Chunk, Content, Filter, Finish};
 use usvg::{Group, SharedMask, Transform, Units};
 
@@ -83,9 +84,7 @@ pub fn create(
 
     let gs_ref = ctx.alloc_ref();
     let mut gs = chunk.ext_graphics(gs_ref);
-    gs.soft_mask()
-        .subtype(mask.kind.to_pdf_mask_type())
-        .group(x_ref);
+    gs.soft_mask().subtype(mask.kind.to_pdf_mask_type()).group(x_ref);
 
     ctx.deferrer.add_graphics_state(gs_ref)
 }

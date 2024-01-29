@@ -1,7 +1,8 @@
 use alloc::rc::Rc;
-
 use alloc::string::String;
+use alloc::vec;
 use alloc::vec::Vec;
+
 use pdf_writer::types::MaskType;
 use pdf_writer::{Chunk, Content, Filter, Finish};
 use usvg::tiny_skia_path::PathSegment;
@@ -57,8 +58,9 @@ pub fn render(
             clip_rules.first().copied().unwrap_or(FillRule::NonZero),
         );
     } else {
-        content
-            .set_parameters(create_complex_clip_path(group, clip_path, chunk, ctx).to_pdf_name());
+        content.set_parameters(
+            create_complex_clip_path(group, clip_path, chunk, ctx).to_pdf_name(),
+        );
     }
 }
 
@@ -161,7 +163,9 @@ fn extend_segments_from_group(
                         PathSegment::CubicTo(p1, p2, p3) => {
                             let mut points = [p1, p2, p3];
                             transform.map_points(&mut points);
-                            segments.push(PathSegment::CubicTo(points[0], points[1], points[2]));
+                            segments.push(PathSegment::CubicTo(
+                                points[0], points[1], points[2],
+                            ));
                         }
                         PathSegment::Close => segments.push(PathSegment::Close),
                     })
@@ -198,13 +202,7 @@ fn create_complex_clip_path(
     content.save_state();
 
     if let Some(recursive_clip_path) = &clip_path.clip_path {
-        render(
-            parent,
-            recursive_clip_path.clone(),
-            chunk,
-            &mut content,
-            ctx,
-        );
+        render(parent, recursive_clip_path.clone(), chunk, &mut content, ctx);
     }
 
     content.transform(clip_path.transform.to_pdf_transform());
@@ -216,13 +214,7 @@ fn create_complex_clip_path(
         content.transform(Transform::from_bbox(parent_svg_bbox).to_pdf_transform());
     }
 
-    group::render(
-        &clip_path.root,
-        chunk,
-        &mut content,
-        ctx,
-        Transform::default(),
-    );
+    group::render(&clip_path.root, chunk, &mut content, ctx, Transform::default());
 
     content.restore_state();
     let content_stream = ctx.finish_content(content);
@@ -248,9 +240,7 @@ fn create_complex_clip_path(
 
     let gs_ref = ctx.alloc_ref();
     let mut gs = chunk.ext_graphics(gs_ref);
-    gs.soft_mask()
-        .subtype(MaskType::Alpha)
-        .group(x_object_reference);
+    gs.soft_mask().subtype(MaskType::Alpha).group(x_object_reference);
 
     ctx.deferrer.add_graphics_state(gs_ref)
 }

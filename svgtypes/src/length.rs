@@ -183,9 +183,8 @@ impl<'a> Iterator for LengthListParser<'a> {
 #[rustfmt::skip]
 #[cfg(test)]
 mod tests {
-    use alloc::string::ToString;
-
     use super::*;
+    use alloc::string::ToString;
     use core::str::FromStr;
 
     macro_rules! test_p {

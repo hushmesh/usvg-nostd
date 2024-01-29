@@ -115,6 +115,7 @@ impl<'a> Paint<'a> {
 #[rustfmt::skip]
 #[cfg(test)]
 mod tests {
+    use alloc::string::ToString;
     use super::*;
 
     macro_rules! test {
@@ -140,7 +141,6 @@ mod tests {
         ($name:ident, $text:expr, $result:expr) => (
             #[test]
             fn $name() {
-                use alloc::string::ToString;
                 assert_eq!(Paint::from_str($text).unwrap_err().to_string(), $result);
             }
         )

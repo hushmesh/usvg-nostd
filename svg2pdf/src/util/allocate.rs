@@ -5,7 +5,9 @@ the allocator is to keep track of the current ID. In addition to that, it allows
 names that will be used for the named resources of an object.
  */
 
+use alloc::format;
 use alloc::string::String;
+
 use pdf_writer::Ref;
 
 /// The struct that holds all of the necessary counters.
@@ -48,10 +50,7 @@ impl Allocator {
 
     /// Create a new allocator with a specific start ID.
     pub fn new_with_start_ref(start_ref: i32) -> Self {
-        Self {
-            next_ref_id: start_ref,
-            ..Allocator::default()
-        }
+        Self { next_ref_id: start_ref, ..Allocator::default() }
     }
 
     /// Allocate a new reference ID.

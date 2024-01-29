@@ -1,3 +1,5 @@
+use alloc::vec;
+
 use pdf_writer::types::ColorSpaceOperand;
 use pdf_writer::types::ColorSpaceOperand::Pattern;
 use pdf_writer::{Chunk, Content, Finish};

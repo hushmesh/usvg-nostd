@@ -343,7 +343,6 @@ fn parse_filter_angle(s: &mut Stream) -> Result<Angle, FilterValueListParserErro
 #[cfg(test)]
 mod tests {
     use alloc::string::ToString;
-
     use super::*;
     use crate::Color;
 

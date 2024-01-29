@@ -276,9 +276,9 @@ fn multiply(ts1: &Transform, ts2: &Transform) -> Transform {
 #[rustfmt::skip]
 #[cfg(test)]
 mod tests {
-    use core::str::FromStr;
     use alloc::string::ToString;
-
+    use alloc::format;
+    use core::str::FromStr;
     use super::*;
 
     macro_rules! test {

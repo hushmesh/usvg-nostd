@@ -8,7 +8,6 @@
 [SVG]: https://en.wikipedia.org/wiki/Scalable_Vector_Graphics
 [usvg]: https://github.com/RazrFalcon/resvg/tree/master/crates/usvg
 */
-
 #![no_std]
 #![forbid(unsafe_code)]
 #![warn(missing_docs)]
@@ -22,7 +21,6 @@
 #![allow(clippy::too_many_arguments)]
 #![allow(clippy::upper_case_acronyms)]
 
-#[macro_use]
 extern crate alloc;
 
 mod clippath;
@@ -96,6 +94,8 @@ impl core::fmt::Display for Error {
         }
     }
 }
+
+impl no_std_io::error::Error for Error {}
 
 trait OptionLog {
     fn log_none<F: FnOnce()>(self, f: F) -> Self;

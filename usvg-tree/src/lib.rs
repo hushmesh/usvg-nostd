@@ -19,7 +19,6 @@
 #![allow(clippy::too_many_arguments)]
 #![allow(clippy::derivable_impls)]
 
-#[macro_use]
 extern crate alloc;
 
 pub mod filter;
@@ -33,7 +32,7 @@ use alloc::sync::Arc;
 use alloc::vec::Vec;
 use core::cell::RefCell;
 
-pub use strict_num::{self, NonZeroPositiveF32, NormalizedF32, PositiveF32};
+pub use strict_num::{self, ApproxEqUlps, NonZeroPositiveF32, NormalizedF32, PositiveF32};
 pub use svgtypes::{Align, AspectRatio};
 
 pub use tiny_skia_path;

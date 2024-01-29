@@ -143,19 +143,19 @@ fn gen_map(
     writeln!(f, "    }}")?;
     writeln!(f, "}}\n")?;
 
-    writeln!(f, "impl std::fmt::Debug for {} {{", enum_name)?;
+    writeln!(f, "impl core::fmt::Debug for {} {{", enum_name)?;
     writeln!(
         f,
-        "    fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {{"
+        "    fn fmt(&self, f: &mut core::fmt::Formatter) -> core::fmt::Result {{"
     )?;
     writeln!(f, "        write!(f, \"{{}}\", self.to_str())")?;
     writeln!(f, "    }}")?;
     writeln!(f, "}}\n")?;
 
-    writeln!(f, "impl std::fmt::Display for {} {{", enum_name)?;
+    writeln!(f, "impl core::fmt::Display for {} {{", enum_name)?;
     writeln!(
         f,
-        "    fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {{"
+        "    fn fmt(&self, f: &mut core::fmt::Formatter) -> core::fmt::Result {{"
     )?;
     writeln!(f, "        write!(f, \"{{:?}}\", self)")?;
     writeln!(f, "    }}")?;

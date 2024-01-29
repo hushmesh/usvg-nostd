@@ -162,6 +162,7 @@ impl<'a> Iterator for NumberListParser<'a> {
 #[rustfmt::skip]
 #[cfg(test)]
 mod tests {
+    use alloc::string::ToString;
     use crate::Stream;
 
     macro_rules! test_p {
@@ -203,7 +204,6 @@ mod tests {
         ($name:ident, $text:expr) => (
             #[test]
             fn $name() {
-                use alloc::string::ToString;
                 let mut s = Stream::from($text);
                 assert_eq!(s.parse_number().unwrap_err().to_string(),
                            "invalid number at position 1");

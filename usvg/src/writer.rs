@@ -2,6 +2,7 @@
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
+use alloc::format;
 use alloc::rc::Rc;
 use alloc::string::String;
 use alloc::string::ToString;
@@ -9,8 +10,7 @@ use alloc::vec::Vec;
 use base64::engine::general_purpose::STANDARD;
 use base64::Engine;
 use core::fmt::Display;
-use hashbrown::HashMap;
-use hashbrown::HashSet;
+use hashbrown::{HashMap, HashSet};
 use no_std_io::io::Write;
 
 use usvg_parser::{AId, EId};
@@ -1325,7 +1325,6 @@ impl XmlWriterExt for XmlWriter {
             buf.extend_from_slice(b"data:image/");
             buf.extend_from_slice(mime.as_bytes());
             buf.extend_from_slice(b";base64, ");
-
             STANDARD.encode_slice(data, buf).unwrap();
         });
     }

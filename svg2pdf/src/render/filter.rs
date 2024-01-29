@@ -1,7 +1,7 @@
 use crate::render::Render;
 use crate::util::context::Context;
+use alloc::sync::Arc;
 use pdf_writer::{Chunk, Content};
-use std::sync::Arc;
 use tiny_skia::{Size, Transform};
 use usvg::{AspectRatio, Group, ImageKind, Node, NonZeroRect, ViewBox, Visibility};
 

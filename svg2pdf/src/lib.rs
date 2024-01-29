@@ -45,7 +45,6 @@ Among the unsupported features are currently:
 
 #![no_std]
 
-#[macro_use]
 extern crate alloc;
 
 mod render;
@@ -61,8 +60,8 @@ use crate::render::tree_to_stream;
 use crate::util::context::Context;
 use crate::util::helper::{deflate, dpi_ratio};
 
-lazy_static! {
 // The ICC profiles.
+lazy_static! {
     static ref SRGB_ICC_DEFLATED: Vec<u8> = deflate(include_bytes!("icc/sRGB-v4.icc"));
     static ref GRAY_ICC_DEFLATED: Vec<u8> = deflate(include_bytes!("icc/sGrey-v4.icc"));
 }
@@ -231,8 +230,7 @@ pub fn convert_tree(tree: &Tree, options: Options) -> Vec<u8> {
     write_color_spaces(&mut ctx, &mut pdf);
 
     let document_info_id = ctx.alloc_ref();
-    pdf.document_info(document_info_id)
-        .producer(TextStr("svg2pdf"));
+    pdf.document_info(document_info_id).producer(TextStr("svg2pdf"));
 
     pdf.finish()
 }
@@ -327,7 +325,12 @@ pub fn convert_tree(tree: &Tree, options: Options) -> Vec<u8> {
 /// std::fs::write("target/embedded.pdf", pdf.finish())?;
 /// # Ok(()) }
 /// ```
-pub fn convert_tree_into(tree: &Tree, options: Options, chunk: &mut Chunk, start_ref: Ref) -> Ref {
+pub fn convert_tree_into(
+    tree: &Tree,
+    options: Options,
+    chunk: &mut Chunk,
+    start_ref: Ref,
+) -> Ref {
     let pdf_size = pdf_size(tree, options);
     let mut ctx = Context::new(tree, options, Some(start_ref.get()));
 
@@ -401,17 +404,17 @@ fn pdf_size(tree: &Tree, options: Options) -> Size {
 
 /// Return the initial transform that is necessary for the conversion between SVG coordinates
 /// and the final PDF page.
-fn initial_transform(aspect: Option<AspectRatio>, tree: &Tree, pdf_size: Size) -> Transform {
+fn initial_transform(
+    aspect: Option<AspectRatio>,
+    tree: &Tree,
+    pdf_size: Size,
+) -> Transform {
     // Account for the custom viewport that has been passed in the Options struct. If nothing has
     // been passed, pdf_size should be the same as tree.size, so the transform will just be the
     // default transform.
     let custom_viewport_transform = view_box_to_transform(
         NonZeroRect::from_xywh(0.0, 0.0, tree.size.width(), tree.size.height()).unwrap(),
-        aspect.unwrap_or(AspectRatio {
-            defer: false,
-            align: Align::None,
-            slice: false,
-        }),
+        aspect.unwrap_or(AspectRatio { defer: false, align: Align::None, slice: false }),
         pdf_size,
     );
 

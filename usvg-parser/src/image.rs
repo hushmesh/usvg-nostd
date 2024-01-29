@@ -3,6 +3,7 @@
 // file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 use alloc::boxed::Box;
+use alloc::format;
 use alloc::string::String;
 use alloc::string::ToString;
 use alloc::sync::Arc;

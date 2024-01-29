@@ -2,6 +2,7 @@ use alloc::rc::Rc;
 use alloc::string::String;
 use core::cell::RefCell;
 use core::ops::Mul;
+
 use pdf_writer::types::{PaintType, TilingType};
 use pdf_writer::{Chunk, Content, Filter};
 use usvg::utils::view_box_to_transform;
@@ -39,16 +40,9 @@ pub fn create(
         pattern.root.opacity = pattern.root.opacity.mul(initial_opacity);
     }
 
-    let pattern_matrix = matrix
-        .pre_concat(pattern.transform)
-        .pre_concat(Transform::from_row(
-            1.0,
-            0.0,
-            0.0,
-            1.0,
-            pattern_rect.x(),
-            pattern_rect.y(),
-        ));
+    let pattern_matrix = matrix.pre_concat(pattern.transform).pre_concat(
+        Transform::from_row(1.0, 0.0, 0.0, 1.0, pattern_rect.x(), pattern_rect.y()),
+    );
 
     let mut content = Content::new();
     content.save_state();
@@ -57,7 +51,8 @@ pub fn create(
         // The x/y is already accounted for in the pattern matrix, so we only need to scale the height/width. Otherwise,
         // the x/y would be applied twice.
         content.transform(
-            Transform::from_scale(parent_bbox.width(), parent_bbox.height()).to_pdf_transform(),
+            Transform::from_scale(parent_bbox.width(), parent_bbox.height())
+                .to_pdf_transform(),
         );
     }
 
@@ -70,13 +65,7 @@ pub fn create(
         content.transform(view_box_transform.to_pdf_transform());
     }
 
-    group::render(
-        &pattern.root,
-        chunk,
-        &mut content,
-        ctx,
-        Transform::default(),
-    );
+    group::render(&pattern.root, chunk, &mut content, ctx, Transform::default());
 
     content.restore_state();
 
@@ -92,7 +81,8 @@ pub fn create(
 
     // We already account for the x/y of the pattern by appending it to the matrix above, so here we just need to take the height / width
     // in consideration
-    let final_bbox = pdf_writer::Rect::new(0.0, 0.0, pattern_rect.width(), pattern_rect.height());
+    let final_bbox =
+        pdf_writer::Rect::new(0.0, 0.0, pattern_rect.width(), pattern_rect.height());
 
     tiling_pattern
         .tiling_type(TilingType::ConstantSpacing)

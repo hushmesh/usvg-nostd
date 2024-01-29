@@ -73,6 +73,7 @@ impl core::str::FromStr for ViewBox {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use alloc::string::ToString;
     use core::str::FromStr;
 
     macro_rules! test {
@@ -91,7 +92,6 @@ mod tests {
         ($name:ident, $text:expr, $result:expr) => (
             #[test]
             fn $name() {
-                use alloc::string::ToString;
                 assert_eq!(ViewBox::from_str($text).unwrap_err().to_string(), $result);
             }
         )

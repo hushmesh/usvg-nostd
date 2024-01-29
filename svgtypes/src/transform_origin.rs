@@ -182,6 +182,7 @@ impl core::str::FromStr for TransformOrigin {
 #[rustfmt::skip]
 #[cfg(test)]
 mod tests {
+    use alloc::string::ToString;
     use super::*;
     use core::str::FromStr;
 
@@ -216,7 +217,6 @@ mod tests {
         ($name:ident, $text:expr, $result:expr) => (
             #[test]
             fn $name() {
-                use alloc::string::ToString;
                 assert_eq!(TransformOrigin::from_str($text).unwrap_err().to_string(), $result);
             }
         )

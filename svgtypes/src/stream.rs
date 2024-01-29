@@ -1,6 +1,6 @@
-use core::str::FromStr;
-
 use alloc::borrow::ToOwned;
+use alloc::vec;
+use core::str::FromStr;
 
 use crate::Error;
 
@@ -388,7 +388,6 @@ impl<'a> Stream<'a> {
 #[cfg(test)]
 mod tests {
     use alloc::string::ToString;
-
     use super::*;
 
     #[test]

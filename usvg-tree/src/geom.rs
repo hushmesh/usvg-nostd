@@ -2,55 +2,25 @@
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
+use strict_num::ApproxEqUlps;
 pub use tiny_skia_path::{NonZeroRect, Rect, Size, Transform};
 
 use crate::AspectRatio;
 
-/// Return the float as a 2s compliment int. Just to be used to compare floats
-/// to each other or against positive float-bit-constants (like 0). This does
-/// not return the int equivalent of the float, just something cheaper for
-/// compares-only.
-fn f32_as_2s_compliment(x: f32) -> i32 {
-    sign_bit_to_2s_compliment(bytemuck::cast(x))
-}
-
-/// Convert a sign-bit int (i.e. float interpreted as int) into a 2s compliement
-/// int. This also converts -0 (0x80000000) to 0. Doing this to a float allows
-/// it to be compared using normal C operators (<, <=, etc.)
-fn sign_bit_to_2s_compliment(mut x: i32) -> i32 {
-    if x < 0 {
-        x &= 0x7FFFFFFF;
-        x = -x;
-    }
-    x
-}
-
-/// Approximate equality comparisons.
-pub trait ApproxEqUlps {
-    /// Checks if the number is approximately equal.
-    fn approx_eq_ulps(&self, other: &Self, ulps: i32) -> bool;
-    /// Checks if the number is not approximately equal.
-    fn approx_ne_ulps(&self, other: &Self, ulps: i32) -> bool {
-        !self.approx_eq_ulps(other, ulps)
-    }
-}
-
 /// Approximate zero equality comparisons.
 pub trait ApproxZeroUlps: ApproxEqUlps {
     /// Checks if the number is approximately zero.
-    fn approx_zero_ulps(&self, ulps: i32) -> bool;
-}
-
-impl ApproxEqUlps for f32 {
-    fn approx_eq_ulps(&self, other: &Self, ulps: i32) -> bool {
-        let a_bits = f32_as_2s_compliment(*self);
-        let b_bits = f32_as_2s_compliment(*other);
-        a_bits < b_bits + ulps && b_bits < a_bits + ulps
-    }
+    fn approx_zero_ulps(&self, ulps: <Self::Flt as strict_num::Ulps>::U) -> bool;
 }
 
 impl ApproxZeroUlps for f32 {
     fn approx_zero_ulps(&self, ulps: i32) -> bool {
+        self.approx_eq_ulps(&0.0, ulps)
+    }
+}
+
+impl ApproxZeroUlps for f64 {
+    fn approx_zero_ulps(&self, ulps: i64) -> bool {
         self.approx_eq_ulps(&0.0, ulps)
     }
 }

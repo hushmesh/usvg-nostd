@@ -54,7 +54,6 @@ None.
 #![deny(missing_debug_implementations)]
 #![deny(missing_copy_implementations)]
 
-#[macro_use]
 extern crate alloc;
 
 macro_rules! matches {

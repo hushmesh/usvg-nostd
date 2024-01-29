@@ -5,7 +5,9 @@
 use alloc::borrow::ToOwned;
 use alloc::string::String;
 use alloc::string::ToString;
+use alloc::vec;
 use alloc::vec::Vec;
+
 use usvg_tree::{ImageRendering, ShapeRendering, Size, TextRendering};
 
 use crate::ImageHrefResolver;

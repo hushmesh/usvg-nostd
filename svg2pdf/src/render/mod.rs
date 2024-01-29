@@ -59,13 +59,14 @@ impl Render for Node {
             }
             #[cfg(feature = "image")]
             Node::Image(ref image) => image::render(image, chunk, content, ctx),
+            #[cfg(not(feature = "image"))]
+            Node::Image(_) => {}
             Node::Text(ref text) => {
                 // Texts should be flattened beforehand.
                 if let Some(ref root) = text.flattened {
                     group::render(root, chunk, content, ctx, accumulated_transform);
                 }
             }
-            &usvg::Node::Image(_) => todo!(),
         }
     }
 }

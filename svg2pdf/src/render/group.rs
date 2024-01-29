@@ -1,8 +1,7 @@
 use alloc::rc::Rc;
 use alloc::string::String;
 use pdf_writer::{Chunk, Content, Filter, Finish};
-use tiny_skia::NonZeroRect;
-use usvg::Transform;
+use usvg::{NonZeroRect, Transform};
 
 #[cfg(feature = "filters")]
 use super::filter;
@@ -40,7 +39,9 @@ pub fn render(
         // XObject, it will be mapped to the coordinate space of where the XObject was invoked, meaning
         // that it will also be affected by the transforms in the content stream. If we passed on the
         // accumulated transform, they would be applied twice.
-        content.x_object(create_x_object(group, chunk, ctx, Transform::default()).to_pdf_name());
+        content.x_object(
+            create_x_object(group, chunk, ctx, Transform::default()).to_pdf_name(),
+        );
         content.restore_state();
     } else {
         create_to_stream(group, chunk, content, ctx, accumulated_transform);

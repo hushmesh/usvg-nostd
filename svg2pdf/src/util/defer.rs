@@ -14,6 +14,7 @@ add all of the named resources to the `Resources` dictionary of the XObject.
 use alloc::rc::Rc;
 use alloc::string::String;
 use alloc::vec::Vec;
+
 use pdf_writer::types::ProcSet;
 use pdf_writer::writers::{ColorSpace, Resources};
 use pdf_writer::{Dict, Finish, Name, Ref};
@@ -142,14 +143,14 @@ impl Deferrer {
         self.write_entries(resources, entries);
     }
 
-    fn add_entry(&mut self, reference: Ref, object_type: PendingResourceType) -> Rc<String> {
+    fn add_entry(
+        &mut self,
+        reference: Ref,
+        object_type: PendingResourceType,
+    ) -> Rc<String> {
         let name = Rc::new(object_type.get_name(&mut self.allocator));
 
-        self.push_entry(PendingResource {
-            object_type,
-            reference,
-            name: name.clone(),
-        });
+        self.push_entry(PendingResource { object_type, reference, name: name.clone() });
         name
     }
 
@@ -174,12 +175,14 @@ impl Deferrer {
     }
 
     /// Write all of the entries into a `Resources` dictionary.
-    fn write_entries(&mut self, resources: &mut Resources, entries: Vec<PendingResource>) {
+    fn write_entries(
+        &mut self,
+        resources: &mut Resources,
+        entries: Vec<PendingResource>,
+    ) {
         for object_type in PendingResourceType::iterator() {
-            let entries: Vec<_> = entries
-                .iter()
-                .filter(|e| e.object_type == object_type)
-                .collect();
+            let entries: Vec<_> =
+                entries.iter().filter(|e| e.object_type == object_type).collect();
 
             if !entries.is_empty() {
                 let mut dict = object_type.get_dict(resources);

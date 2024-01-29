@@ -1,7 +1,9 @@
 use alloc::borrow::ToOwned;
 use alloc::rc::Rc;
 use alloc::string::String;
+use alloc::vec;
 use alloc::vec::Vec;
+
 use pdf_writer::types::{FunctionShadingType, MaskType};
 use pdf_writer::{Chunk, Content, Filter, Finish, Name, Ref};
 use usvg::{NonZeroRect, NormalizedF32, Paint, StopOffset, Transform, Units};
@@ -115,14 +117,13 @@ fn shading_soft_mask(
     let shading_name = ctx.deferrer.add_shading(shading_ref);
     let bbox = ctx.get_rect().to_pdf_rect();
 
-    let transform =
-        properties
-            .transform
-            .pre_concat(if properties.units == Units::ObjectBoundingBox {
-                Transform::from_bbox(*parent_bbox)
-            } else {
-                Transform::default()
-            });
+    let transform = properties.transform.pre_concat(
+        if properties.units == Units::ObjectBoundingBox {
+            Transform::from_bbox(*parent_bbox)
+        } else {
+            Transform::default()
+        },
+    );
 
     let mut content = Content::new();
     content.transform(transform.to_pdf_transform());
@@ -211,16 +212,10 @@ fn function(
     }
 
     if use_opacities {
-        let stops = stops
-            .iter()
-            .map(|s| s.opacity_stops())
-            .collect::<Vec<Stop<1>>>();
+        let stops = stops.iter().map(|s| s.opacity_stops()).collect::<Vec<Stop<1>>>();
         select_function(&stops, chunk, ctx)
     } else {
-        let stops = stops
-            .iter()
-            .map(|s| s.color_stops())
-            .collect::<Vec<Stop<3>>>();
+        let stops = stops.iter().map(|s| s.color_stops()).collect::<Vec<Stop<3>>>();
         select_function(&stops, chunk, ctx)
     }
 }

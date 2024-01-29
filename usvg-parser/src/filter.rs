@@ -5,9 +5,11 @@
 //! A collection of SVG filters.
 
 use alloc::boxed::Box;
+use alloc::format;
 use alloc::rc::Rc;
 use alloc::string::String;
 use alloc::string::ToString;
+use alloc::vec;
 use alloc::vec::Vec;
 use core::cell::RefCell;
 use core::str::FromStr;

@@ -68,7 +68,6 @@ impl core::str::FromStr for EnableBackground {
 #[cfg(test)]
 mod tests {
     use alloc::string::ToString;
-
     use super::*;
     use core::str::FromStr;
 

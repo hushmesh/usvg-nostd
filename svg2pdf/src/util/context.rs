@@ -5,6 +5,7 @@ compressed and access to an instance of the deferrer + allocator.
 */
 
 use alloc::vec::Vec;
+
 use pdf_writer::{Content, Ref};
 use usvg::utils::view_box_to_transform;
 use usvg::{NonZeroRect, Size, Transform, Tree, ViewBox};

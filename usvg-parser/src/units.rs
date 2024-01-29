@@ -3,6 +3,7 @@
 // file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 use alloc::vec::Vec;
+
 use svgtypes::{Length, LengthUnit as Unit};
 use usvg_tree::Units;
 
