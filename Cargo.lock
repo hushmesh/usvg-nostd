@@ -544,6 +544,7 @@ checksum = "5de35e8a90052baaaf61f171680ac2f8e925a1e43ea9d2e3a00514772250e541"
 dependencies = [
  "arrayref",
  "bytemuck",
+ "libm",
  "strict-num",
 ]
 

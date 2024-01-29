@@ -14,4 +14,4 @@ readme = "README.md"
 [dependencies]
 strict-num = { version = "0.1.1", default-features = false, features = [ "approx-eq" ] }
 svgtypes = { path = "../svgtypes" }
-tiny-skia-path = "0.11.3"
+tiny-skia-path = { version = "0.11.3", default-features = false, features = [ "no-std-float" ] }
