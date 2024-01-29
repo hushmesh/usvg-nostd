@@ -16,4 +16,4 @@ log = "0.4.8"
 
 [dev-dependencies]
 env_logger = { version = "0.6", default-features = false }
-roxmltree = "0.7"
+roxmltree = { version = "0.19", default-features = false }
