@@ -13,7 +13,7 @@ readme = "README.md"
 exclude = ["tests"]
 
 [dependencies]
-data-url = "0.3" # for href parsing
+data-url = { version = "0.3", default-features = false, features = ["alloc"] } # for href parsing
 hashbrown = { version = "0.12", default-features = false, features = ["ahash"] }
 imagesize = { path = "../imagesize" } # raster images size detection
 kurbo = { path = "../kurbo" }
