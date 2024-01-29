@@ -11,6 +11,7 @@ use base64::engine::general_purpose::STANDARD;
 use base64::Engine;
 use core::fmt::Display;
 use hashbrown::{HashMap, HashSet};
+use kurbo::common::FloatFuncs;
 use no_std_io::io::Write;
 
 use usvg_parser::{AId, EId};
@@ -1639,7 +1640,8 @@ static POW_VEC: &[f32] = &[
 
 fn write_num(num: f32, buf: &mut Vec<u8>, precision: u8) {
     // If number is an integer, it's faster to write it as i32.
-    if num.fract().approx_zero_ulps(4) {
+    let fract = num - num.trunc();
+    if fract.approx_zero_ulps(4) {
         write!(buf, "{}", num as i32).unwrap();
         return;
     }

@@ -9,6 +9,7 @@ members = [ "float-cmp",
 	"svg2pdf",
 	"usvg",
 	"usvg-parser",
-	"usvg-tree" ]
+	"usvg-tree",
+	"xmlwriter", ]
 resolver = "2"
  
