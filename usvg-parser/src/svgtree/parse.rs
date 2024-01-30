@@ -2,9 +2,9 @@
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
+use alloc::collections::BTreeMap;
 use alloc::string::ToString;
 use alloc::vec::Vec;
-use hashbrown::HashMap;
 
 use roxmltree::Error;
 
@@ -55,11 +55,11 @@ fn parse<'input>(xml: &roxmltree::Document<'input>) -> Result<Document<'input>, 
     let mut doc = Document {
         nodes: Vec::new(),
         attrs: Vec::new(),
-        links: HashMap::new(),
+        links: BTreeMap::new(),
     };
 
     // build a map of id -> node for resolve_href
-    let mut id_map = HashMap::new();
+    let mut id_map = BTreeMap::new();
     for node in xml.descendants() {
         if let Some(id) = node.attribute("id") {
             if !id_map.contains_key(id) {
@@ -100,7 +100,7 @@ fn parse<'input>(xml: &roxmltree::Document<'input>) -> Result<Document<'input>, 
     }
 
     // Collect all elements with `id` attribute.
-    let mut links = HashMap::new();
+    let mut links = BTreeMap::new();
     for node in doc.descendants() {
         if let Some(id) = node.attribute::<&str>(AId::Id) {
             links.insert(id.to_string(), node.id);
@@ -137,7 +137,7 @@ fn parse_xml_node_children<'input>(
     ignore_ids: bool,
     depth: u32,
     doc: &mut Document<'input>,
-    id_map: &HashMap<&str, roxmltree::Node<'_, 'input>>,
+    id_map: &BTreeMap<&str, roxmltree::Node<'_, 'input>>,
 ) -> Result<(), Error> {
     for node in parent.children() {
         parse_xml_node(
@@ -163,7 +163,7 @@ fn parse_xml_node<'input>(
     ignore_ids: bool,
     depth: u32,
     doc: &mut Document<'input>,
-    id_map: &HashMap<&str, roxmltree::Node<'_, 'input>>,
+    id_map: &BTreeMap<&str, roxmltree::Node<'_, 'input>>,
 ) -> Result<(), Error> {
     if depth > 1024 {
         return Err(Error::NodesLimitReached);
@@ -440,7 +440,7 @@ fn resolve_inherit(parent_id: NodeId, aid: AId, doc: &mut Document) -> bool {
 
 fn resolve_href<'a, 'input: 'a>(
     node: roxmltree::Node<'a, 'input>,
-    id_map: &HashMap<&str, roxmltree::Node<'a, 'input>>,
+    id_map: &BTreeMap<&str, roxmltree::Node<'a, 'input>>,
 ) -> Option<roxmltree::Node<'a, 'input>> {
     let link_value = node
         .attribute((XLINK_NS, "href"))
@@ -458,7 +458,7 @@ fn parse_svg_use_element<'input>(
     style_sheet: &simplecss::StyleSheet,
     depth: u32,
     doc: &mut Document<'input>,
-    id_map: &HashMap<&str, roxmltree::Node<'_, 'input>>,
+    id_map: &BTreeMap<&str, roxmltree::Node<'_, 'input>>,
 ) -> Result<(), Error> {
     let link = match resolve_href(node, id_map) {
         Some(v) => v,

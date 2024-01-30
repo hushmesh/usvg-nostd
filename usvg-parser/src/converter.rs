@@ -3,12 +3,12 @@
 // file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 use alloc::boxed::Box;
+use alloc::collections::BTreeMap;
 use alloc::rc::Rc;
 use alloc::string::String;
 use alloc::string::ToString;
 use alloc::vec::Vec;
 use core::str::FromStr;
-use hashbrown::HashMap;
 
 use svgtypes::{Length, LengthUnit as Unit, PaintOrderKind, TransformOrigin};
 use usvg_tree::*;
@@ -33,10 +33,10 @@ pub struct State<'a> {
 
 #[derive(Default)]
 pub struct Cache {
-    pub clip_paths: HashMap<String, SharedClipPath>,
-    pub masks: HashMap<String, SharedMask>,
-    pub filters: HashMap<String, filter::SharedFilter>,
-    pub paint: HashMap<String, Paint>,
+    pub clip_paths: BTreeMap<String, SharedClipPath>,
+    pub masks: BTreeMap<String, SharedMask>,
+    pub filters: BTreeMap<String, filter::SharedFilter>,
+    pub paint: BTreeMap<String, Paint>,
 }
 
 impl<'a, 'input: 'a> SvgNode<'a, 'input> {

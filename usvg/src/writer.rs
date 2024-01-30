@@ -2,6 +2,8 @@
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
+use alloc::collections::BTreeMap;
+use alloc::collections::BTreeSet;
 use alloc::format;
 use alloc::rc::Rc;
 use alloc::string::String;
@@ -10,7 +12,6 @@ use alloc::vec::Vec;
 use base64::engine::general_purpose::STANDARD;
 use base64::Engine;
 use core::fmt::Display;
-use hashbrown::{HashMap, HashSet};
 use kurbo::common::FloatFuncs;
 use no_std_io::io::Write;
 
@@ -71,8 +72,8 @@ impl Default for XmlOptions {
 struct WriterContext<'a> {
     opt: &'a XmlOptions,
 
-    all_ids: HashSet<u64>,
-    id_map: HashMap<usize, String>,
+    all_ids: BTreeSet<u64>,
+    id_map: BTreeMap<usize, String>,
     next_filter_index: usize,
     next_clip_path_index: usize,
     next_mask_index: usize,
@@ -81,7 +82,7 @@ struct WriterContext<'a> {
     next_pattern_index: usize,
     next_path_index: usize,
 
-    text_path_map: HashMap<String, String>,
+    text_path_map: BTreeMap<String, String>,
 }
 
 impl WriterContext<'_> {
@@ -177,17 +178,14 @@ impl WriterContext<'_> {
 
 // TODO: is there a simpler way?
 fn string_hash(s: &str) -> u64 {
-    use core::hash::{Hash, Hasher};
-    let mut h = ahash::AHasher::default();
-    s.hash(&mut h);
-    h.finish()
+    siphasher::sip::SipHasher::new().hash(s.as_bytes())
 }
 
 pub(crate) fn convert(tree: &Tree, opt: &XmlOptions) -> String {
     let mut ctx = WriterContext {
         opt,
-        all_ids: HashSet::default(),
-        id_map: HashMap::default(),
+        all_ids: BTreeSet::default(),
+        id_map: BTreeMap::default(),
         next_filter_index: 0,
         next_clip_path_index: 0,
         next_mask_index: 0,
@@ -195,7 +193,7 @@ pub(crate) fn convert(tree: &Tree, opt: &XmlOptions) -> String {
         next_radial_gradient_index: 0,
         next_pattern_index: 0,
         next_path_index: 0,
-        text_path_map: HashMap::new(),
+        text_path_map: BTreeMap::new(),
     };
     collect_ids(tree, &mut ctx);
 

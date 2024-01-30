@@ -2,11 +2,11 @@
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
+use alloc::collections::BTreeMap;
 use alloc::string::String;
 use alloc::vec::Vec;
 use core::num::NonZeroU32;
 use core::str::FromStr;
-use hashbrown::HashMap;
 
 #[rustfmt::skip] mod names;
 mod parse;
@@ -21,7 +21,7 @@ pub use names::{AId, EId};
 pub struct Document<'input> {
     nodes: Vec<NodeData>,
     attrs: Vec<Attribute<'input>>,
-    links: HashMap<String, NodeId>,
+    links: BTreeMap<String, NodeId>,
 }
 
 impl<'input> Document<'input> {

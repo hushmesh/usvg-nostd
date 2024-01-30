@@ -5,6 +5,7 @@
 //! A collection of SVG filters.
 
 use alloc::boxed::Box;
+use alloc::collections::BTreeSet;
 use alloc::format;
 use alloc::rc::Rc;
 use alloc::string::String;
@@ -13,7 +14,6 @@ use alloc::vec;
 use alloc::vec::Vec;
 use core::cell::RefCell;
 use core::str::FromStr;
-use hashbrown::HashSet;
 
 use kurbo::common::FloatFuncs;
 use strict_num::PositiveF32;
@@ -250,7 +250,7 @@ fn find_filter_with_primitives<'a>(node: SvgNode<'a, 'a>) -> Option<SvgNode<'a, 
 }
 
 struct FilterResults {
-    names: HashSet<String>,
+    names: BTreeSet<String>,
     idx: usize,
 }
 
@@ -263,7 +263,7 @@ fn collect_children(
     let mut primitives = Vec::new();
 
     let mut results = FilterResults {
-        names: HashSet::new(),
+        names: BTreeSet::new(),
         idx: 1,
     };
 
